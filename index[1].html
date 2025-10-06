@@ -1,0 +1,80 @@
+<!doctype html><html lang="pt-br"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ON ROUTE - Agenda Médica</title>
+<link rel="stylesheet" href="styles.css"/></head>
+<body>
+<header class="app-header"><div class="logo">
+<svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
+<defs><linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs>
+<path d="M6 40c8-10 16-6 22-2s10 8 18-2" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"/>
+<g transform="translate(42,14)"><path d="M10 0a10 10 0 0 1 10 10c0 8-10 18-10 18S0 18 0 10A10 10 0 0 1 10 0z" fill="#22c55e"/>
+<circle cx="10" cy="10" r="4.5" fill="#0f172a"/></g></svg><strong>ON ROUTE</strong></div>
+<div class="rep-info" id="repInfo"></div>
+<div class="header-actions">
+<button id="syncBtn" class="secondary">Sincronizar</button>
+<button id="copyMonthBtn" class="secondary">Copiar mês</button>
+<button id="resetBtn" class="secondary">Reset</button>
+<button id="logoutBtn" class="secondary">Sair</button>
+</div></header>
+<div id="banner" class="banner hidden"></div>
+<main id="welcomePage" class="page">
+<section class="card card-lg"><h1>Bem-vindo à Agenda ON ROUTE</h1>
+<p>Preencha seus dados para começar.</p>
+<form id="repForm" class="grid-form">
+<label><span>Nome do representante</span><input type="text" id="repNome" required/></label>
+<label><span>Empresa</span><input type="text" id="repEmpresa" required/></label>
+<label><span>Matrícula</span><input type="text" id="repMatricula" required/></label>
+<button type="submit" class="primary">Entrar</button></form></section></main>
+<main id="agendaPage" class="page hidden">
+<div class="toolbar">
+<div class="left"><button id="prevWeekBtn" class="secondary">◀ anterior</button>
+<button id="todayBtn" class="secondary">hoje</button>
+<button id="nextWeekBtn" class="secondary">próxima ▶</button></div>
+<div class="center"><input id="searchCadastroTop" type="search" placeholder="Buscar no cadastro..."/></div>
+<div class="right"><div class="toggle-group" role="group" aria-label="Visão">
+<button id="dayViewBtn" class="secondary">Visão Dia</button>
+<button id="weekViewBtn" class="secondary active">Visão Semana</button></div>
+<button id="importBtn" class="secondary">Importar</button>
+<button id="addDoctorBtn" class="primary">+ Incluir médico</button></div></div>
+<div class="board">
+<section class="column cadastro">
+<div class="column-header"><h2>Cadastro <span id="cadastroCount" class="pill">0</span></h2>
+<p class="muted">Arraste pelo <b>handle</b> “⋮⋮” para o dia/horário.</p></div>
+<div id="cadastroList" class="card-list"></div></section>
+<section class="column calendar"><h2 id="calendarTitle">Agenda (Seg→Dom)</h2>
+<div id="calendarGrid" class="calendar-grid week-view"></div></section></div></main>
+<aside id="detailPanel" class="side-panel hidden" aria-hidden="true">
+<div class="side-panel-header"><h3 id="detailName">Detalhes</h3>
+<button id="closePanelBtn" class="icon" aria-label="Fechar">✖</button></div>
+<div class="side-panel-body"><form id="editForm" class="stack-form">
+<label><span>Nome</span><input id="editNome" type="text" required/></label>
+<label><span>Especialidade</span><input id="editEspec" type="text" placeholder="Opcional"/></label>
+<label><span>Endereço</span><input id="editEnd" type="text" placeholder="Opcional"/></label>
+<div class="info-line"><span>Agendado para:</span><span id="editScheduled" class="mono"></span></div>
+<div class="panel-actions">
+<button type="button" id="saveEditBtn" class="primary">Salvar</button>
+<button type="button" id="cancelScheduleBtn" class="secondary">Cancelar agendamento</button>
+<button type="button" id="movePrevWeekBtn" class="secondary">← Mover p/ semana anterior</button>
+<button type="button" id="moveNextWeekBtn" class="secondary">Mover p/ próxima semana →</button>
+<button type="button" id="deleteDoctorBtn" class="danger">Excluir do app</button>
+</div></form></div></aside>
+<dialog id="addDoctorDialog">
+<form method="dialog" id="addDoctorForm" class="stack-form">
+<h3>Incluir médico</h3>
+<label><span>Nome</span><input id="newNome" required/></label>
+<label><span>Especialidade</span><input id="newEspec" placeholder="Opcional"/></label>
+<label><span>Endereço</span><input id="newEnd" placeholder="Opcional"/></label>
+<menu><button value="cancel" class="secondary">Cancelar</button><button id="confirmAddDoctor" value="default" class="primary">Adicionar</button></menu>
+</form></dialog>
+<dialog id="importDialog">
+<form method="dialog" id="importForm" class="stack-form">
+<h3>Importar profissionais</h3>
+<p class="muted">Envie um CSV (coluna <b>J</b> = nomes). Delimitador ; , ou TAB.</p>
+<input id="importFile" type="file" accept=".csv,text/csv"/>
+<label><span>Ou cole a lista (um nome por linha)</span>
+<textarea id="pasteList" rows="6" placeholder="Nome do médico..."></textarea></label>
+<label><input type="checkbox" id="replaceList"/><span>Substituir lista atual</span></label>
+<menu><button value="cancel" class="secondary">Cancelar</button><button id="confirmImport" value="default" class="primary">Importar</button></menu>
+</form></dialog>
+<script src="app.js"></script></body></html>
